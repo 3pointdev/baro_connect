@@ -6,5 +6,6 @@ export default class ProductSummaryModel {
   public price: number = 0;
   public image: string = "";
   public rating: number = 0;
+  public category: number = 0;
   public seller: SellerModel = new SellerModel();
 }

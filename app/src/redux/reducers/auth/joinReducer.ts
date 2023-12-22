@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import JoinModel from "src/models/join/join.model";
+import JoinModel from "src/models/auth/join.model";
 import { RootState } from "../../store";
 
 export interface JoinState {
