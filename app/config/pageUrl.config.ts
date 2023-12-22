@@ -2,7 +2,7 @@ class PageUrlConfig {
   public notFound = "*";
   public home = "/";
   public login = "/login";
-  public join = "/login";
+  public join = "/join";
   public product = "/product";
   public chat = "/chat";
   public contact = "/contact";

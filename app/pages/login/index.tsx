@@ -15,6 +15,9 @@ import {
 } from "src/redux/reducers/auth/loginReducer";
 import { useAppDispatch, useAppSelector } from "src/redux/reduxHook";
 
+import { useEffect } from "react";
+import { setIsMobile } from "src/redux/reducers/auth/userReducer";
+
 export default function Login(props: PageProps) {
   const dispatch = useAppDispatch();
   const state = useAppSelector(selectLoginState);
@@ -29,8 +32,16 @@ export default function Login(props: PageProps) {
     dispatch(toggleAutoLogin(checked));
   };
 
+  useEffect(() => {
+    dispatch(setIsMobile(props.isMobile));
+  }, [props.isMobile]);
+
   return (
-    <PageArticle addClass="p-4 pt-16 flex flex-col gap-8 items-center justify-center">
+    <PageArticle
+      addClass={`p-4 flex flex-col gap-8 items-center justify-center ${
+        props.isMobile ? "" : "pt-16"
+      }`}
+    >
       <button
         className="p-2 flex items-start fixed top-2 left-2"
         onClick={() => props.router.back()}

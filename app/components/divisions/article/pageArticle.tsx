@@ -14,7 +14,7 @@ export default function PageArticle({
       "text-bg-gray-900 bg-gray-300 dark:bg-gray-800 dark:text-white w-screen min-h-screen h-full overflow-hidden ";
   } else {
     styleClass =
-      "text-bg-gray-900 bg-gray-300 dark:bg-gray-800 dark:text-white overflow-hidden w-full ";
+      "text-bg-gray-900 bg-gray-300 dark:bg-gray-800 dark:text-white overflow-hidden w-full h-full ";
   }
 
   styleClass += addClass;

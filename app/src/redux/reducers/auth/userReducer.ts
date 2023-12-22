@@ -17,9 +17,14 @@ const initialState: UserState = {
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    setIsMobile: (state, action) => {
+      console.log(action.payload);
+      state.isMobile = action.payload;
+    },
+  },
 });
 
-export const {} = userSlice.actions;
+export const { setIsMobile } = userSlice.actions;
 export const selectUserState = (state: RootState) => state.user;
 export default userSlice.reducer;

@@ -1,15 +1,14 @@
 import LazyImage from "components/divisions/image/lazyImage";
 import Linker from "components/divisions/linker/linker";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { List } from "react-virtualized";
 import { selectProductState } from "src/redux/reducers/product/productReducer";
 import { useAppSelector } from "src/redux/reduxHook";
 import Rating from "../rate/rating";
 
-export default function Product() {
+export default function Product({ isMobile }: { isMobile: boolean }) {
   const state = useAppSelector(selectProductState);
   const [size, setSize] = useState([0, 0]);
-  const containerRef = useRef(null);
 
   const rowRenderer = useCallback(
     ({ key, index, style }) => {
@@ -68,12 +67,36 @@ export default function Product() {
   );
 
   useEffect(() => {
-    const containerHeight = Math.min(state.productList.length * 112 * 0.16);
-    setSize([containerRef.current.clientWidth, 112, containerHeight]);
-  }, [, containerRef?.current?.clientWidth]);
+    const reSize = () => {
+      let containerHeight;
+      let containerWidth;
 
-  return (
-    <div ref={containerRef}>
+      if (isMobile) {
+        containerHeight = Math.min(
+          window.innerHeight * 0.67 - 40,
+          state.productList.length * 112
+        );
+        containerWidth = window.innerWidth;
+      } else {
+        containerHeight = Math.min(
+          680 * 0.67 - 40,
+          state.productList.length * 112
+        );
+        containerWidth = 380;
+      }
+
+      setSize([containerWidth, 112, containerHeight]);
+    };
+
+    reSize();
+
+    window.addEventListener("resize", reSize);
+
+    return () => window.removeEventListener("resize", reSize);
+  }, []);
+
+  if (size[0] !== 0 && size[1] !== 0)
+    return (
       <List
         width={size[0]}
         height={size[2]}
@@ -82,6 +105,5 @@ export default function Product() {
         rowRenderer={rowRenderer}
         style={{ padding: "0 16px 64px 16px" }}
       />
-    </div>
-  );
+    );
 }

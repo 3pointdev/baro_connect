@@ -8,28 +8,42 @@ import Category from "components/combinations/list/category";
 import PageArticle from "components/divisions/article/pageArticle";
 import Linker from "components/divisions/linker/linker";
 import { PageProps } from "pages/page.type";
-import { selectUserState } from "src/redux/reducers/auth/userReducer";
+import { useEffect } from "react";
+import {
+  selectUserState,
+  setIsMobile,
+} from "src/redux/reducers/auth/userReducer";
 import { selectContactState } from "src/redux/reducers/contact/contactReducer";
-import { useAppSelector } from "src/redux/reduxHook";
+import { useAppDispatch, useAppSelector } from "src/redux/reduxHook";
 
 export default function Contact(props: PageProps) {
   const user = useAppSelector(selectUserState);
   const contact = useAppSelector(selectContactState);
 
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setIsMobile(props.isMobile));
+  }, [props.isMobile]);
+
   return (
-    <PageArticle addClass="pt-16 p-4 flex flex-col gap-16">
+    <PageArticle addClass="pt-16 p-4 flex flex-col gap-16 h-full justify-between">
       <button
         className="p-2 flex items-start fixed top-2 left-2"
         onClick={() => props.router.back()}
       >
         <FontAwesomeIcon icon={faArrowLeft} size="xl" />
       </button>
-      <section className="flex flex-col gap-4">
+      <section className="h-full flex flex-col gap-4">
         <h1 className="text-2xl font-semibold">고객센터</h1>
-        <div className="">
+        <div className="h-full">
           <h3 className="pl-4 text-xl">자주 묻는 질문</h3>
           <Category list={contact.category} spaceBetween={"8%"} />
-          <div className="border w-full h-[50vh] rounded-lg mt-4"></div>
+          <div
+            className={`border w-full ${
+              user.isMobile ? "h-[50vh]" : "h-[70%]"
+            } rounded-lg mt-4`}
+          ></div>
         </div>
       </section>
       <section className="flex flex-col gap-4">

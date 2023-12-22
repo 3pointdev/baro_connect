@@ -11,6 +11,9 @@ import {
 } from "src/redux/reducers/auth/findReducer";
 import { useAppDispatch, useAppSelector } from "src/redux/reduxHook";
 
+import { useEffect } from "react";
+import { setIsMobile } from "src/redux/reducers/auth/userReducer";
+
 export default function Find(props: PageProps) {
   const state = useAppSelector(selectFindState);
   const dispatch = useAppDispatch();
@@ -19,6 +22,10 @@ export default function Find(props: PageProps) {
     const { id, value } = e.target;
     dispatch(changeFindValue({ id, value }));
   };
+
+  useEffect(() => {
+    dispatch(setIsMobile(props.isMobile));
+  }, [props.isMobile]);
 
   return (
     <PageArticle addClass="p-4 flex flex-col gap-8 items-center justify-center">

@@ -9,7 +9,7 @@ export default function Footer({ router }: { router: NextRouter }) {
   const menu = useAppSelector(selectMainState).menuList;
 
   return (
-    <footer className="w-full h-16 fixed bottom-0 text-bg-gray-900 bg-gray-300 dark:bg-gray-800 dark:text-white flex">
+    <footer className="w-full h-14 fixed bottom-0 text-bg-gray-900 bg-gray-300 dark:bg-gray-800 dark:text-white flex">
       {menu.map((menuItem: MenuModel) => {
         const active = router.pathname === menuItem.url;
 
@@ -21,7 +21,7 @@ export default function Footer({ router }: { router: NextRouter }) {
             key={`menu_${menuItem.title}`}
             href={menuItem.url}
           >
-            <FontAwesomeIcon icon={menuItem.icon} size="xl" />
+            <FontAwesomeIcon icon={menuItem.icon} size="lg" />
           </Linker>
         );
       })}

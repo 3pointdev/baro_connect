@@ -11,6 +11,9 @@ import {
 } from "src/redux/reducers/auth/joinReducer";
 import { useAppDispatch, useAppSelector } from "src/redux/reduxHook";
 
+import { useEffect } from "react";
+import { setIsMobile } from "src/redux/reducers/auth/userReducer";
+
 export default function Join(props: PageProps) {
   const dispatch = useAppDispatch();
   const state = useAppSelector(selectJoinState);
@@ -20,8 +23,16 @@ export default function Join(props: PageProps) {
     dispatch(changeJoinValue({ id, value }));
   };
 
+  useEffect(() => {
+    dispatch(setIsMobile(props.isMobile));
+  }, [props.isMobile]);
+
   return (
-    <PageArticle addClass="p-4 flex flex-col gap-8 items-center justify-center">
+    <PageArticle
+      addClass={`p-4 flex flex-col gap-8 items-center justify-center ${
+        props.isMobile ? "" : "pt-16"
+      }`}
+    >
       <button
         className="p-2 flex items-start fixed top-2 left-2"
         onClick={() => props.router.back()}

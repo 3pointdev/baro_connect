@@ -8,7 +8,13 @@ import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-export default function Banner({ router }: { router: NextRouter }) {
+export default function Banner({
+  router,
+  isMobile,
+}: {
+  router: NextRouter;
+  isMobile: boolean;
+}) {
   const bannerList = useAppSelector(selectMainState).bannerList;
 
   return (
@@ -31,7 +37,7 @@ export default function Banner({ router }: { router: NextRouter }) {
                 <LazyImage
                   src={banner.image}
                   alt={`${banner.title}_banner_image`}
-                  addClass="max-h-[33%]"
+                  addClass={isMobile ? "!max-h-[33vh]" : "!max-h-[33%]"}
                 />
                 <div
                   className={`absolute bottom-0 left-0 w-full ${

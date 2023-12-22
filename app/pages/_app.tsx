@@ -23,10 +23,8 @@ export default function App({ Component, pageProps }: AppProps) {
     pageUrlConfig.contact,
     pageUrlConfig.find,
   ];
-  console.log(isMobile);
-  useEffect(() => {
-    setIsMobile(navigator.userAgent.includes("Mobi"));
 
+  useEffect(() => {
     //다크모드 배경 설정
     window
       .matchMedia("(prefers-color-scheme: dark)")
@@ -55,12 +53,23 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, []);
 
+  useEffect(() => {
+    const setAgent = () => {
+      setIsMobile(navigator.userAgent.includes("Mobi"));
+    };
+
+    setAgent();
+
+    window.addEventListener("resize", setAgent);
+    return () => window.removeEventListener("resize", setAgent);
+  }, []);
+
   return (
     <Provider store={store}>
       {isMobile ? (
         <>
           {!headerlessUrl.includes(router.pathname) && <Header />}
-          <Component {...props.pageProps} router={router} />
+          <Component {...props.pageProps} router={router} isMobile={isMobile} />
           {!headerlessUrl.includes(router.pathname) && (
             <Footer router={router} />
           )}
@@ -68,11 +77,16 @@ export default function App({ Component, pageProps }: AppProps) {
       ) : (
         <div className="relative w-screen h-screen">
           <img
+            src="https://barofactory.kr/wp-content/uploads/2023/10/Untitled-1.png"
+            alt="mobile_cover_background"
+            className="absolute"
+          />
+          <img
             src="/images/agent/mobile_cover.png"
             alt="mobile_cover"
             className="w-[430px] h-[800px] z-50 absolute right-[30%] top-[49%] -translate-y-1/2 pointer-events-none"
           />
-          <div className="w-[380px] h-[720px] absolute right-[calc(30%+24px)] top-1/2 -translate-y-1/2 pointer-events-auto overflow-hidden">
+          <div className="w-[382px] h-[728px] absolute right-[calc(30%+24px)] top-[calc(50%+4px)] -translate-y-1/2 pointer-events-auto overflow-hidden">
             {!headerlessUrl.includes(router.pathname) && <Header />}
             <Component {...props.pageProps} router={router} />
             {!headerlessUrl.includes(router.pathname) && (
