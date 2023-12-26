@@ -18,7 +18,7 @@ export default function Banner({
   const bannerList = useAppSelector(selectMainState).bannerList;
 
   return (
-    <section className="relative h-[33%]">
+    <section className="relative h-fit">
       <Swiper
         modules={[Pagination, Autoplay]}
         pagination={{ clickable: true }}

@@ -79,7 +79,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <img
             src="https://barofactory.kr/wp-content/uploads/2023/10/Untitled-1.png"
             alt="mobile_cover_background"
-            className="absolute"
+            className="absolute opacity-60"
           />
           <img
             src="/images/agent/mobile_cover.png"
