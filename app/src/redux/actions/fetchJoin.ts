@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { Dispatch } from "redux";
-import JoinModel from "src/models/join/join.model";
+import JoinModel from "src/models/auth/join.model";
 import { postJoin } from "../reducers/auth/joinReducer";
 
 export const fetchJoin = (account: JoinModel) => {
